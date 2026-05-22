@@ -21,7 +21,6 @@ export interface IIssueDetails extends IIssue {
 export interface ICreateIssueDTO {
     title: string;
     description: string;
-    reporter_id: string;
     type: string;
 }
 

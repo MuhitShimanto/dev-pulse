@@ -1,4 +1,5 @@
 import type { IUserRepository } from "../user/user.interface";
+import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
 export class AuthService {
@@ -35,8 +36,20 @@ export class AuthService {
         if (!isMatch) {
             return null;
         }
+
+        // Generate JWT token
+        const token = await this.generateToken(user.id, user.role);
+
         // remove password before returning
         const {password: _, ...userWithoutPassword} = user;
-        return userWithoutPassword;
+        return {
+            token,
+            user: userWithoutPassword
+        };
+    }
+    private async generateToken(userId: string, role: "contributor" | "maintainer") {
+        const payload = { id: userId, role };
+        const token = jwt.sign(payload, process.env.JWT_SECRET as string, { expiresIn: "6h" });
+        return token;
     }
 }

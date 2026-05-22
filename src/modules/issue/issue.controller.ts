@@ -14,8 +14,8 @@ const createIssues = async (
 ) => {
   try {
     // Input validation
-    const { title, description, reporter_id, type } =
-      req.body as ICreateIssueDTO;
+    const { title, description, type } = req.body as ICreateIssueDTO;
+    const reporter_id = req.user?.id;
     if (!title || !description || !reporter_id || !type) {
       sendResponse(res, {
         statusCode: 400,
@@ -128,7 +128,7 @@ const updateIssueById = async (
       success: true,
       message: "Issue updated successfully",
       data: updatedIssue,
-    })
+    });
   } catch (error) {
     next(error);
   }
