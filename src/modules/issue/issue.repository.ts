@@ -52,7 +52,12 @@ export class IssueRepository implements IIssueRepository {
     return result.rows[0] as IIssue;
   }
   public async delete(id: string): Promise<boolean> {
-    throw new Error("Method not implemented.");
+    const query = `
+      DELETE FROM issues
+      WHERE id = $1
+    `;
+    const result = await this.pool.query(query, [id]);
+    return result.rowCount as number > 0;
   }
   public async findById(id: string): Promise<IIssueDetails | null> {
     const query = `

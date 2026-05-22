@@ -34,7 +34,7 @@ export class IssueService {
     return updatedIssue;
   }
   public async deleteIssue(id: string) {
-    throw new Error("Method not implemented.");
+    return await this.issueRepository.delete(id);
   }
   public async getAllIssues(
     sort: string = "newest",

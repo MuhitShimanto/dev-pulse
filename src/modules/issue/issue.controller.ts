@@ -133,10 +133,36 @@ const updateIssueById = async (
     next(error);
   }
 };
+const deleteIssueById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { id } = req.params;
+    const deleted = await issueService.deleteIssue(id as string);
+    if (!deleted) {
+      sendResponse(res, {
+        statusCode: 404,
+        success: false,
+        message: "Issue not found or failed to delete.",
+      });
+      return;
+    }
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: "Issue deleted successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
 export const issueController = {
   createIssues,
   getAllIssues,
   getIssueById,
   updateIssueById,
+  deleteIssueById,
 };
