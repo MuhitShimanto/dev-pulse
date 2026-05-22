@@ -33,18 +33,20 @@ export class IssueService {
     title?: string,
     description?: string,
     type?: string,
+    status?: "open" | "in_progress" | "resolved",
   ) {
     const issue = await this.issueRepository.findById(id);
     if (!issue) {
       return null;
     }
     // Ownership logic
-    const canUpdate = (role === "contributor" && issue.reporter_id === userId && issue.status === "open") || role === "maintainer";
+    const canUpdate = (role === "contributor" && issue.reporter_id == userId && issue.status === "open") || role === "maintainer";
     if (!canUpdate) {
       return null;
     }
+    const newStatus = (role === "maintainer" && status) ? status : issue.status;
     const updatedIssue = await this.issueRepository.update(id, {
-        title, description, type
+        title, description, type, status: newStatus
     });
     return updatedIssue;
   }

@@ -52,11 +52,12 @@ export class IssueRepository implements IIssueRepository {
       UPDATE issues
       SET title = COALESCE($1, title),
           description = COALESCE($2, description),
-          type = COALESCE($3, type)
-      WHERE id = $4
+          type = COALESCE($3, type),
+          status = COALESCE($4, status)
+      WHERE id = $5
       RETURNING *
     `;
-    const values = [data.title, data.description, data.type, id];
+    const values = [data.title, data.description, data.type, data.status, id];
     const result = await this.pool.query(query, values);
     if (!result.rows[0]) {
       return null;

@@ -9,7 +9,7 @@ export interface IIssue {
   title: string;
   description: string;
   type: string;
-  status: string;
+  status: "open" | "in_progress" | "resolved";
   reporter_id: string;
   created_at: Date;
   updated_at: Date;
@@ -33,7 +33,7 @@ export interface IUpdateIssueDTO {
   title?: string | undefined;
   description?: string | undefined;
   type?: string | undefined;
-  status?: string | undefined;
+  status?: "open" | "in_progress" | "resolved" | undefined;
 }
 
 // Repository Interface

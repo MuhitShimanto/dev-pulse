@@ -137,7 +137,7 @@ const updateIssueById = async (
 ) => {
   try {
     const { id } = req.params;
-    const { title, description, type } = req.body;
+    const { title, description, type, status } = req.body;
     const user = req.user;
     if (!user) {
       sendResponse(res, {
@@ -155,6 +155,7 @@ const updateIssueById = async (
       title,
       description,
       type,
+      status,
     );
 
     if (!updatedIssue) {
