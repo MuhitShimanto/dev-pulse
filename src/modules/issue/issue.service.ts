@@ -33,7 +33,13 @@ export class IssueService {
         return issues;
     }
     public async getIssueById(id: string) {
-        throw new Error("Method not implemented.");
+        const issue = await this.issueRepository.findById(id);
+        if (!issue) {
+            return null;
+        }
+
+        const { reporter_id, ...issueWithoutReporterId } = issue;
+        return issueWithoutReporterId;
     }
     public async getIssuesByReporterId(reporter_id: string) {
         throw new Error("Method not implemented.");

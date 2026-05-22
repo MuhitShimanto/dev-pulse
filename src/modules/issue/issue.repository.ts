@@ -2,6 +2,7 @@ import type { Pool } from "pg";
 import type {
   ICreateIssueDTO,
   IIssue,
+  IIssueDetails,
   IIssueRepository,
   IUpdateIssueDTO,
 } from "./issue.interface";
@@ -32,8 +33,31 @@ export class IssueRepository implements IIssueRepository {
   public async delete(id: string): Promise<boolean> {
     throw new Error("Method not implemented.");
   }
-  public async findById(id: string): Promise<IIssue | null> {
-    throw new Error("Method not implemented.");
+  public async findById(id: string): Promise<IIssueDetails | null> {
+    const query = `
+      SELECT *
+      FROM issues
+      WHERE id = $1
+    `;
+    const issueResult = await this.pool.query(query, [id]);
+    if (!issueResult.rows[0]) {
+      return null;
+    }
+    const reporterQuery = `
+      SELECT id, name, role
+      FROM users
+      WHERE id = $1
+    `;
+    const reporter = await this.pool.query(reporterQuery, [
+      issueResult.rows[0]?.reporter_id,
+    ]);
+    const { created_at, updated_at, ...trimIssue } = issueResult.rows[0];
+    return {
+      ...trimIssue,
+      reporter: reporter.rows[0],
+      created_at,
+      updated_at,
+    };
   }
   public async findByReporterId(reporter_id: string): Promise<IIssue[]> {
     throw new Error("Method not implemented.");

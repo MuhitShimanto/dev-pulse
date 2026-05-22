@@ -65,7 +65,35 @@ const getAllIssues = async (
   }
 };
 
+const getIssueById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { id } = req.params;
+    const issue = await issueService.getIssueById(id as string);
+
+    if (!issue) {
+      sendResponse(res, {
+        statusCode: 404,
+        success: false,
+        message: "Issue not found",
+      });
+      return;
+    }
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      data: issue,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const issueController = {
   createIssues,
   getAllIssues,
+  getIssueById,
 };

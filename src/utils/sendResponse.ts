@@ -3,7 +3,7 @@ import type { Response } from "express";
 interface createResponse<T> {
   statusCode: number;
   success: boolean;
-  message: string;
+  message?: string | undefined;
   data?: T;
 }
 
@@ -13,7 +13,7 @@ const sendResponse = <T>(
 ) => {
   const response: Omit<createResponse<T>, "statusCode"> = {
     success: success !== undefined ? success : true,
-    message,
+    message: message ? message : undefined,
     ...(data !== undefined && { data }),
   };
 

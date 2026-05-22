@@ -9,6 +9,13 @@ export interface IIssue {
     created_at: Date;
     updated_at: Date;
 }
+export interface IIssueDetails extends IIssue {
+    reporter: {
+        id: string;
+        name: string;
+        role: string;
+    };
+}
 
 // DTOs
 export interface ICreateIssueDTO {
@@ -28,7 +35,7 @@ export interface IUpdateIssueDTO {
 // Repository Interface
 export interface IIssueRepository {
     findAll(sort: string, filter: { type?: string; status?: string }): Promise<IIssue[]>;
-    findById(id: string): Promise<IIssue | null>;
+    findById(id: string): Promise<IIssueDetails | null>;
     findByReporterId(reporter_id: string): Promise<IIssue[]>;
     create(data: ICreateIssueDTO): Promise<IIssue>;
     update(id: string, data: IUpdateIssueDTO): Promise<IIssue | null>;
