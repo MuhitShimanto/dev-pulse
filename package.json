@@ -6,8 +6,7 @@
   "scripts": {
     "start": "node dist/server.js",
     "dev": "tsx watch src/server.ts",
-    "build": "tsup src/server.ts --out-dir dist",
-    "vercel-build": "npm run build"
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
