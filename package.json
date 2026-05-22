@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node dist/server.js",
     "dev": "tsx watch src/server.ts",
-    "build": "tsup",
+    "build": "tsup src/server.ts --out-dir dist",
     "vercel-build": "npm run build"
   },
   "keywords": [],
@@ -19,8 +19,7 @@
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
-    "pg": "^8.21.0",
-    "tsup": "^8.5.1"
+    "pg": "^8.21.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",
@@ -29,6 +28,7 @@
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^25.9.1",
     "@types/pg": "^8.20.0",
+    "tsup": "^8.5.1",
     "tsx": "^4.22.3",
     "typescript": "^6.0.3"
   }
