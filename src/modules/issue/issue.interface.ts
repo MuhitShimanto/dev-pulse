@@ -27,6 +27,7 @@ export interface IUpdateIssueDTO {
 
 // Repository Interface
 export interface IIssueRepository {
+    findAll(sort: string, filter: { type?: string; status?: string }): Promise<IIssue[]>;
     findById(id: string): Promise<IIssue | null>;
     findByReporterId(reporter_id: string): Promise<IIssue[]>;
     create(data: ICreateIssueDTO): Promise<IIssue>;

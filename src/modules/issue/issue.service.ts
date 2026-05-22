@@ -23,8 +23,14 @@ export class IssueService {
     public async deleteIssue(id: string) {
         throw new Error("Method not implemented.");
     }
-    public async getAllIssues() {
-        throw new Error("Method not implemented.");
+    public async getAllIssues(sort: string = "newest", type: string, status: string) {
+        // Retrieve all issues with optional sorting and filtering
+        const filter = {
+            type,
+            status
+        }
+        const issues = await this.issueRepository.findAll(sort, filter);
+        return issues;
     }
     public async getIssueById(id: string) {
         throw new Error("Method not implemented.");

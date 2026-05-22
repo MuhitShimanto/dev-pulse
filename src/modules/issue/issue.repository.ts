@@ -38,4 +38,36 @@ export class IssueRepository implements IIssueRepository {
   public async findByReporterId(reporter_id: string): Promise<IIssue[]> {
     throw new Error("Method not implemented.");
   }
+  public async findAll(
+    sort: "newest" | "oldest",
+    filter: { type?: string; status?: string },
+  ): Promise<IIssue[]> {
+    const conditions: string[] = [];
+    const values: any[] = [];
+
+    let query = `SELECT * FROM issues`;
+
+    // Filtering
+    if (filter.type) {
+      values.push(filter.type);
+      conditions.push(`type = $${values.length}`);
+    }
+
+    if (filter.status) {
+      values.push(filter.status);
+      conditions.push(`status = $${values.length}`);
+    }
+
+    if (conditions.length > 0) {
+      query += ` WHERE ` + conditions.join(" AND ");
+    }
+
+    // Sorting
+    const orderBy = sort === "oldest" ? "created_at ASC" : "created_at DESC";
+
+    query += ` ORDER BY ${orderBy}`;
+
+    const result = await this.pool.query(query, values);
+    return result.rows as IIssue[];
+  }
 }
