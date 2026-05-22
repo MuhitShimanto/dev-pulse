@@ -9,7 +9,7 @@ import type {
   IUpdateUserDTO,
   IUser,
   IUserRepository,
-} from "./user.interface";
+} from "./user.interface.js";
 
 export class UserRepository implements IUserRepository {
   private pool: Pool;

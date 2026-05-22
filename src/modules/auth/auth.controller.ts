@@ -1,8 +1,8 @@
 import type { NextFunction, Request, Response } from "express";
-import sendResponse from "../../utils/sendResponse";
-import { UserRepository } from "../user/user.repository";
-import { AuthService } from "./auth.service";
-import { pool } from "../../db";
+import sendResponse from "../../utils/sendResponse.js";
+import { UserRepository } from "../user/user.repository.js";
+import { AuthService } from "./auth.service.js";
+import { pool } from "../../db/index.js";
 
 const authService = new AuthService(new UserRepository(pool));
 

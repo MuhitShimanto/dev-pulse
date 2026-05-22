@@ -1,6 +1,6 @@
 import Router from "express";
-import { issueController } from "./issue.controller";
-import { roleCheck } from "../../middlewares/checkRole.middleware";
+import { issueController } from "./issue.controller.js";
+import { roleCheck } from "../../middlewares/checkRole.middleware.js";
 
 const router = Router();
 

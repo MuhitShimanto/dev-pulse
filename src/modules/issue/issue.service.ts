@@ -2,7 +2,7 @@
  * @file issue.service.ts
  * @description This file contains the IssueService class which provides methods to manage issues in the system. It interacts with the IIssueRepository to perform CRUD operations on issues.
  */
-import type { IIssueRepository } from "./issue.interface";
+import type { IIssueRepository } from "./issue.interface.js";
 
 export class IssueService {
   private issueRepository: IIssueRepository;

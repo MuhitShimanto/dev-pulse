@@ -10,7 +10,7 @@ import type {
   IIssueDetails,
   IIssueRepository,
   IUpdateIssueDTO,
-} from "./issue.interface";
+} from "./issue.interface.js";
 
 export class IssueRepository implements IIssueRepository {
   private pool: Pool;

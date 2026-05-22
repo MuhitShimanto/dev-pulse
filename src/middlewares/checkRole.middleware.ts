@@ -1,7 +1,7 @@
 import type { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import config from "../config";
-import sendResponse from "../utils/sendResponse";
+import config from "../config/index.js";
+import sendResponse from "../utils/sendResponse.js";
 
 export const roleCheck =
   (...roles: ("contributor" | "maintainer")[]) =>

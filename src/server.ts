@@ -1,6 +1,6 @@
-import app from "./app";
-import config from "./config";
-import { initDb } from "./db";
+import app from "./app.js";
+import config from "./config/index.js";
+import { initDb } from "./db/index.js";
 
 (async () => {
   try {

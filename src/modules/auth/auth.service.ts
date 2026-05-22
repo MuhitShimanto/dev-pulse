@@ -2,7 +2,7 @@
  * @file auth.service.ts
  * @description This file contains the AuthService class which provides methods for user authentication and registration. It interacts with the IUserRepository to perform operations related to user management.
  */
-import type { IUserRepository } from "../user/user.interface";
+import type { IUserRepository } from "../user/user.interface.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 

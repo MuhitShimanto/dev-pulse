@@ -1,9 +1,9 @@
 import type { NextFunction, Request, Response } from "express";
-import sendResponse from "../../utils/sendResponse";
-import { IssueRepository } from "./issue.repository";
-import { pool } from "../../db";
-import { IssueService } from "./issue.service";
-import type { ICreateIssueDTO } from "./issue.interface";
+import sendResponse from "../../utils/sendResponse.js";
+import { IssueRepository } from "./issue.repository.js";
+import { pool } from "../../db/index.js";
+import { IssueService } from "./issue.service.js";
+import type { ICreateIssueDTO } from "./issue.interface.js";
 
 const issueService = new IssueService(new IssueRepository(pool));
 

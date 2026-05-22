@@ -1,9 +1,9 @@
 import express, { type Request, type Response } from 'express';
 import cors from 'cors';
-import globalErrorHandler from './utils/globalErrorHandler';
-import sendResponse from './utils/sendResponse';
-import { authRoute } from './modules/auth/auth.route';
-import { issueRouter } from './modules/issue/issue.route';
+import globalErrorHandler from './utils/globalErrorHandler.js';
+import sendResponse from './utils/sendResponse.js';
+import { authRoute } from './modules/auth/auth.route.js';
+import { issueRouter } from './modules/issue/issue.route.js';
 
 const app = express();
 
