@@ -3,6 +3,7 @@ import cors from 'cors';
 import globalErrorHandler from './utils/globalErrorHandler';
 import sendResponse from './utils/sendResponse';
 import { authRoute } from './modules/auth/auth.route';
+import { issueRouter } from './modules/issue/issue.route';
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use("/api/auth", authRoute);
+app.use("/api/issues", issueRouter);
 
 // Welcome Route
 app.use("/api", async(req: Request, res: Response) => {

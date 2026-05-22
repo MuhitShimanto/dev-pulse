@@ -1,12 +1,11 @@
-
 export interface IUser {
     id: string;
     name: string;
     email: string;
     password: string;
     role: "contributor" | "maintainer";
-    createdAt: Date;
-    updatedAt: Date;
+    created_at: Date;
+    updated_at: Date;
 }
 
 export interface ICreateUserDTO {
