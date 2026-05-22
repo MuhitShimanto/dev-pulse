@@ -25,7 +25,7 @@ export interface IUpdateUserDTO {
 
 export interface IUserRepository {
   findById(id: string): Promise<Omit<IUser, "password"> | null>;
-  findByEmail(email: string): Promise<Omit<IUser, "password"> | null>;
+  findByEmail(email: string): Promise<IUser | null>;
   create(data: ICreateUserDTO): Promise<Omit<IUser, "password"> | null>;
   update(id: string, data: IUpdateUserDTO): Promise<Omit<IUser, "password"> | null>;
   delete(id: string): Promise<boolean>;

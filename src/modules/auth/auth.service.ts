@@ -24,4 +24,19 @@ export class AuthService {
         });
         return newUser;
     }
+
+    public async loginUser(email: string, password: string) {
+        // Find User
+        const user = await this.userRepository.findByEmail(email);
+        if (!user) {
+            return null;
+        }
+        const isMatch = await bcrypt.compare(password, user.password as string);
+        if (!isMatch) {
+            return null;
+        }
+        // remove password before returning
+        const {password: _, ...userWithoutPassword} = user;
+        return userWithoutPassword;
+    }
 }

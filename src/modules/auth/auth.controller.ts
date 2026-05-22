@@ -35,7 +35,33 @@ const registerUser = async (
     next(error);
   }
 };
+const loginUser = async (req: Request, res: Response, next: NextFunction) => {
+  {
+    try {
+      const user = await authService.loginUser(
+        req.body.email,
+        req.body.password
+      );
+      if (!user) {
+        return sendResponse(res, {
+          statusCode: 401,
+          success: false,
+          message: "Invalid email or password.",
+        });
+      }
+      sendResponse(res, {
+        statusCode: 200,
+        success: true,
+        message: "User logged in successfully",
+        data: user,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+};
 
 export const authController = {
   registerUser,
+  loginUser,
 };

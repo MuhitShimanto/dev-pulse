@@ -37,13 +37,13 @@ export class UserRepository implements IUserRepository {
   public async findById(id: string): Promise<Omit<IUser, "password"> | null> {
     throw new Error("Method not implemented.");
   }
-  public async findByEmail(email: string): Promise<Omit<IUser, "password"> | null> {
+  public async findByEmail(email: string): Promise<IUser | null> {
     const query = `
         SELECT *
         FROM users
         WHERE email = $1
     `;
     const result = await this.pool.query(query, [email]);
-    return result.rows[0] as Omit<IUser, "password"> | null;
+    return result.rows[0] as IUser | null;
   }
 }
