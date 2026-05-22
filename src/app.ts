@@ -12,10 +12,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-app.use("/api/v1/auth", authRoute);
+app.use("/api/auth", authRoute);
 
 // Welcome Route
-app.use("/api/v1", async(req: Request, res: Response) => {
+app.use("/api", async(req: Request, res: Response) => {
     sendResponse(res, {
         statusCode: 200,
         success: true,

@@ -26,7 +26,7 @@ const registerUser = async (
       });
     }
     sendResponse(res, {
-      statusCode: 200,
+      statusCode: 201,
       success: true,
       message: "User registered successfully",
       data: user,
