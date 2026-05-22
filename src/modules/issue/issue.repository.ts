@@ -28,7 +28,28 @@ export class IssueRepository implements IIssueRepository {
     id: string,
     data: IUpdateIssueDTO,
   ): Promise<IIssue | null> {
-    throw new Error("Method not implemented.");
+    const query = `
+      UPDATE issues
+      SET title = COALESCE($1, title),
+          description = COALESCE($2, description),
+          type = COALESCE($3, type)
+      WHERE id = $4
+      RETURNING *
+    `;
+    const values = [data.title, data.description, data.type, id];
+    const result = await this.pool.query(query, values);
+    if (!result.rows[0]) {
+      return null;
+    }
+    await this.pool.query(
+      `
+      UPDATE issues
+      SET updated_at = NOW()
+      WHERE id = $1
+     `,
+      [id],
+    );
+    return result.rows[0] as IIssue;
   }
   public async delete(id: string): Promise<boolean> {
     throw new Error("Method not implemented.");

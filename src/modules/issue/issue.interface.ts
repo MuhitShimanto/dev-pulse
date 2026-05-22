@@ -26,10 +26,10 @@ export interface ICreateIssueDTO {
 }
 
 export interface IUpdateIssueDTO {
-    title?: string;
-    description?: string;
-    type?: string;
-    status?: string;
+    title?: string | undefined;
+    description?: string | undefined;
+    type?: string | undefined;
+    status?: string | undefined;
 }
 
 // Repository Interface
