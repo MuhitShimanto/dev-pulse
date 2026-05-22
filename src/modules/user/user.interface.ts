@@ -1,3 +1,9 @@
+/**
+ * @file user.interface.ts
+ * @description This file defines the IUser interface and related DTOs for user management in the application. It also includes the IUserRepository interface for data access operations related to users.
+ */
+
+
 export interface IUser {
     id: string;
     name: string;

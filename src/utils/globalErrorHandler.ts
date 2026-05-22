@@ -1,3 +1,12 @@
+/**
+ * @file globalErrorHandler.ts
+ * @description Global error handling middleware for Express applications.
+ * @param {CustomError} err - The error object thrown in the application.
+ * @param {Request} req - The Express request object.
+ * @param {Response} res - The Express response object.
+ * @param {NextFunction} next - The next middleware function in the stack.
+ * @returns {void} - Sends a JSON response with error details.
+ */
 import type { NextFunction, Request, Response } from "express";
 
 interface CustomError extends Error {

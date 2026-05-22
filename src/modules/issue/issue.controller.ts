@@ -7,6 +7,14 @@ import type { ICreateIssueDTO } from "./issue.interface";
 
 const issueService = new IssueService(new IssueRepository(pool));
 
+/**
+ * @desc Create a new issue with the provided title, description, type, and reporter ID.
+ * @route POST /api/issues
+ * @access  Contributor and Maintainer
+ * @param {string} title - The title of the issue (required).
+ * @param {string} description - The detailed description of the issue (required).
+ * @param {string} type - The type/category of the issue (required).
+ */
 const createIssues = async (
   req: Request,
   res: Response,
@@ -49,6 +57,14 @@ const createIssues = async (
   }
 };
 
+/**
+ * @desc Retrieve a list of all issues with optional sorting and filtering by type and status.
+ * @route GET /api/issues
+ * @access  Public
+ * @query {string} sort - Sort order for issues (newest or oldest).
+ * @query {string} type - Filter issues by type/category.
+ * @query {string} status - Filter issues by status (e.g., open, closed).
+ */
 const getAllIssues = async (
   req: Request,
   res: Response,
@@ -65,7 +81,6 @@ const getAllIssues = async (
     sendResponse(res, {
       statusCode: 200,
       success: true,
-      message: "Issues retrieved successfully",
       data: issues,
     });
   } catch (error) {
@@ -73,6 +88,12 @@ const getAllIssues = async (
   }
 };
 
+/**
+ * @desc Retrieve the details of a specific issue by its unique identifier.
+ * @route GET /api/issues/:id
+ * @access  Public
+ * @param {string} id - The unique identifier of the issue to retrieve.
+ */
 const getIssueById = async (
   req: Request,
   res: Response,
@@ -100,6 +121,15 @@ const getIssueById = async (
   }
 };
 
+/**
+ * @desc Update the details of an existing issue by its unique identifier. Only the provided fields will be updated.
+ * @route PATCH /api/issues/:id
+ * @access  Maintainer
+ * @param {string} id - The unique identifier of the issue to update.
+ * @param {string} title - The new title of the issue (optional).
+ * @param {string} description - The new detailed description of the issue (optional).
+ * @param {string} type - The new type/category of the issue (optional).
+ */
 const updateIssueById = async (
   req: Request,
   res: Response,
@@ -108,8 +138,20 @@ const updateIssueById = async (
   try {
     const { id } = req.params;
     const { title, description, type } = req.body;
+    const user = req.user;
+    if (!user) {
+      sendResponse(res, {
+        statusCode: 401,
+        success: false,
+        message: "Unauthorized",
+      });
+      return;
+    }
+
     const updatedIssue = await issueService.updateIssue(
       id as string,
+      user.id as string,
+      user.role as "contributor" | "maintainer",
       title,
       description,
       type,
@@ -133,6 +175,13 @@ const updateIssueById = async (
     next(error);
   }
 };
+
+/**
+ * @desc Delete an existing issue by its unique identifier. This will remove the issue from the system permanently.
+ * @route DELETE /api/issues/:id
+ * @access  Maintainer
+ * @param {string} id - The unique identifier of the issue to delete.
+ */
 const deleteIssueById = async (
   req: Request,
   res: Response,

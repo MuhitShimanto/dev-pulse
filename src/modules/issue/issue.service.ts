@@ -1,3 +1,7 @@
+/**
+ * @file issue.service.ts
+ * @description This file contains the IssueService class which provides methods to manage issues in the system. It interacts with the IIssueRepository to perform CRUD operations on issues.
+ */
 import type { IIssueRepository } from "./issue.interface";
 
 export class IssueService {
@@ -24,10 +28,21 @@ export class IssueService {
   }
   public async updateIssue(
     id: string,
+    userId: string,
+    role: "contributor" | "maintainer",
     title?: string,
     description?: string,
     type?: string,
   ) {
+    const issue = await this.issueRepository.findById(id);
+    if (!issue) {
+      return null;
+    }
+    // Ownership logic
+    const canUpdate = (role === "contributor" && issue.reporter_id === userId && issue.status === "open") || role === "maintainer";
+    if (!canUpdate) {
+      return null;
+    }
     const updatedIssue = await this.issueRepository.update(id, {
         title, description, type
     });

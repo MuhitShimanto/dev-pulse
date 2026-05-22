@@ -6,6 +6,15 @@ import { pool } from "../../db";
 
 const authService = new AuthService(new UserRepository(pool));
 
+/**
+ * @desc    Register a new user
+ * @route   POST /api/auth/register
+ * @access  Public
+ * @param {string} name - The name of the user (required).
+ * @param {string} email - The email of the user (required).
+ * @param {string} password - The password of the user (required).
+ * @param {string} role - The role of the user (required). Must be either "contributor" or "maintainer". Defaults to "contributor".
+ */
 const registerUser = async (
   req: Request,
   res: Response,
@@ -35,6 +44,13 @@ const registerUser = async (
     next(error);
   }
 };
+/**
+ * @desc    Login an existing user
+ * @route   POST /api/auth/login
+ * @access  Public
+ * @param {string} email - The email of the user (required).
+ * @param {string} password - The password of the user (required).
+ */
 const loginUser = async (req: Request, res: Response, next: NextFunction) => {
   {
     try {
